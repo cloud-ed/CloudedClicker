@@ -64,7 +64,7 @@ def launch_gui():
     global start_button, stop_button, status_label, interval_var
 
     root = tk.Tk()
-    root.title("cloudedAutoClicker")
+    root.title("CloudedClicker")
 
     # Window size
     w_height = 135
@@ -78,19 +78,24 @@ def launch_gui():
     control_frame.grid_columnconfigure(0, weight=1)
     control_frame.grid_columnconfigure(0, weight=1)
 
-    # Interval settings
-    ttk.Label(control_frame, text="Click speed (ms):").grid(column=0, row=0, pady=(0, 5), sticky="w")
-    
+   # Interval settings
+    ttk.Label(control_frame, text="Click speed (ms):", anchor="center", justify="center").grid(
+        column=0, row=0, pady=(0, 5), sticky="ew"
+    )
+
     interval_var = tk.StringVar(value="100")
     interval_entry = ttk.Entry(control_frame, width=10, textvariable=interval_var, justify="center")
-    interval_entry.grid(column=0, row=1, pady=(0, 10), sticky="w", padx=10)
+    interval_entry.grid(column=0, row=1, pady=(0, 10), sticky="ew", padx=10)
 
     # Hotkey settings
-    ttk.Label(control_frame, text="Hotkey:").grid(column=1, row=0, pady=(0, 5), sticky="e")
-    
+    ttk.Label(control_frame, text="Hotkey:", anchor="center", justify="center").grid(
+        column=1, row=0, pady=(0, 5), sticky="ew"
+    )
+
     hotkey_var = tk.StringVar(value="`")
     hotkey_entry = ttk.Entry(control_frame, width=10, textvariable=hotkey_var, justify="center")
-    hotkey_entry.grid(column=1, row=1, pady=(0, 10), sticky="e", padx=10)
+    hotkey_entry.grid(column=1, row=1, pady=(0, 10), sticky="ew", padx=10)
+
 
     # No auto-select when tabbing in
     def remove_selection(event):
