@@ -1,0 +1,23 @@
+# Byte-compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Build artifacts
+build/
+dist/
+icons/
+*.spec
+*.log
+
+# Executable zips
+*.zip
+
+# Virtual environments
+env/
+venv/
+*.egg-info/
+
+# OS files
+.DS_Store
+Thumbs.db
