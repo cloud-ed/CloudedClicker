@@ -9,7 +9,7 @@ from pynput.keyboard import Listener, KeyCode
 TOGGLE_KEY = None
 
 # Globals
-clicking = False
+clicking_event = threading.Event()
 mouse = Controller()
 
 # GUI callback references
@@ -21,11 +21,11 @@ interval_var = None
 # Main clicker loop
 def clicker():
     while True:
-        if clicking:
+        if clicking_event.is_set():
             try:
-                interval = float(interval_var.get()) / 1000 # Convert ms to seconds
+                interval = float(interval_var.get()) / 1000  # Convert ms to seconds
             except ValueError:
-                interval = 100 / 1000 # default 100ms
+                interval = 100 / 1000  # Default 100ms
             mouse.click(Button.left, 1)
             time.sleep(interval)
         else:
@@ -33,30 +33,31 @@ def clicker():
 
 # Update GUI based on current state
 def update_gui_state():
-    if clicking:
-        start_button.config(state='disabled') # Grey out when clicking
+    if clicking_event.is_set():
+        start_button.config(state='disabled')  # Grey out when clicking
         stop_button.config(state='normal')
         status_label.config(text="Status: Clicking")
     else:
         start_button.config(state='normal')
-        stop_button.config(state='disabled') # Grey out when not clicking
+        stop_button.config(state='disabled')  # Grey out when not clicking
         status_label.config(text="Status: Idle")
 
 def start_clicking():
-    global clicking
-    clicking = True
+    clicking_event.set()
     update_gui_state()
 
 def stop_clicking():
-    global clicking
-    clicking = False
+    clicking_event.clear()
     update_gui_state()
 
 # Hotkey toggle
 def toggle_event(key):
     global clicking
     if TOGGLE_KEY and key == TOGGLE_KEY:
-        clicking = not clicking
+        if clicking_event.is_set():
+            clicking_event.clear()  # Stop clicking
+        else:
+            clicking_event.set()  # Start clicking
         update_gui_state()
 
 def launch_gui():
@@ -90,6 +91,21 @@ def launch_gui():
     hotkey_var = tk.StringVar(value="`")
     hotkey_entry = ttk.Entry(control_frame, width=10, textvariable=hotkey_var, justify="center")
     hotkey_entry.grid(column=1, row=1, pady=(0, 10), sticky="e", padx=10)
+
+    # No auto-select when tabbing in
+    def remove_selection(event):
+        event.widget.selection_clear()
+
+    interval_entry.bind("<FocusIn>", remove_selection)
+    hotkey_entry.bind("<FocusIn>", remove_selection)
+
+    # Deselect entry when clicking outside
+    def clear_focus(event):
+        widget = event.widget
+        if not isinstance(widget, tk.Entry):
+            root.focus()
+
+    root.bind_all("<Button-1>", clear_focus)
 
     # Start and stop buttons
     start_button = ttk.Button(control_frame, text="Start (`)", command=start_clicking)
