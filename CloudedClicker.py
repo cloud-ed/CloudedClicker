@@ -11,6 +11,9 @@ TOGGLE_KEY = None
 # Globals
 clicking_event = threading.Event()
 mouse = Controller()
+recording = False
+replaying = False
+recorded_actions = []
 
 # GUI callback references
 start_button = None
