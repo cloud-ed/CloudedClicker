@@ -65,6 +65,10 @@ def stop_clicking():
 # Hotkey toggle
 def toggle_event(key):
     global clicking
+    # Disable clicking hotkey when on the record/playback 
+    if mode_var.get() in ["recorder"]:
+        return
+
     if TOGGLE_KEY and key == TOGGLE_KEY:
         if clicking_event.is_set():
             clicking_event.clear()  # Stop clicking
@@ -127,7 +131,6 @@ def playback_actions():
             mouse.click(button)
 
     replaying = False
-
 
 def update_recorder_state():
     if record_button and stop_record_button:
