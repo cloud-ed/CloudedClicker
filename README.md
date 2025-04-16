@@ -1,6 +1,6 @@
-# CloudedClicker V1.0.0
+# CloudedClicker V1.1.0
 
-CloudedClicker is a lightweight, customizeable **autoclicker for Windows**.
+CloudedClicker is a lightweight, customizeable **autoclicker for Windows** - now with mouse macro recording and playback.
 
 ---
 
@@ -12,17 +12,30 @@ CloudedClicker is a lightweight, customizeable **autoclicker for Windows**.
 
 - 🖱️ **Simple One-Key Toggle** — Press a single customizable hotkey to toggle clicking on/off.
 - ⚙️ **Adjustable Click Interval** — Set how fast it clicks (in milliseconds).
+- 🎥 **Record + Playback Mouse Actions** — Automate more complex or repetitive motion with ease.
+- 🔁 **Mode Switching** — Instantly switch between autoclicker mode and recording mode with one button.
 - 🎛️ **Clean and Minimal UI** — Lightweight, no fluff. Just click, set, go.
 
 ---
 
 ## 🖥️ How to Use
 
+### 🖱 Autoclicker Mode:
+
 1. Open `CloudedClicker.exe`.
 2. Choose your **click speed** in milliseconds.
 3. Set your preferred **hotkey**.
 4. Click **Start**, or use your hotkey to begin auto-clicking.
 5. Click **Stop**, or press the hotkey again to disable.
+
+### 🎥 Recorder Mode:
+
+1. Click **Switch Mode** to enter Recorder Mode.
+2. Press **Start Recording** and perform the mouse actions you want to capture.
+3. Press **Stop Recording** once you're done.
+4. Click **Playback** to replay your recorded inputs.
+
+> 🔒 While in Recorder Mode, the hotkey toggle for clicking is disabled — no accidental clicks mid-recording.
 
 ---
 
@@ -37,6 +50,7 @@ Just download and unzip — no install required.
 
 - CloudedClicker is built for accessibility and personal use. Please **use responsibly** and in accordance with any software or game policies.
 - This app runs quietly in the background. If you accidentally enable it, just press your toggle hotkey again to stop.
+- Recording only captures mouse movement and left-clicks for now — keyboard support might come in a future update.
 
 ---
 
@@ -50,7 +64,7 @@ Just download and unzip — no install required.
 
 ---
 
-## ❤️ Small Wins in a Larger Battle
+## Dev Note
 
 I know it's not much, but this project is really just a small win I needed right now. If anyone wants to use it, feel free.
 
