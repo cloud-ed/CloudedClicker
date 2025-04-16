@@ -3,6 +3,7 @@ import threading
 import tkinter as tk
 from tkinter import ttk
 from pynput.mouse import Controller, Button
+from pynput.mouse import Listener as mListener
 from pynput.keyboard import Listener, KeyCode
 
 # Toggle hotkey
@@ -20,6 +21,11 @@ start_button = None
 stop_button = None
 status_label = None
 interval_var = None
+
+
+################################################################
+#                       CLICKER SECTION                        #
+################################################################
 
 # Main clicker loop
 def clicker():
@@ -62,6 +68,66 @@ def toggle_event(key):
         else:
             clicking_event.set()  # Start clicking
         update_gui_state()
+
+
+################################################################
+#                  RECORD/PLAYBACK SECTION                     #
+################################################################
+
+def on_click(x, y, button, pressed):
+    if recording:
+        timestamp = time.time()
+        recorded_actions.append(('click', x, y, button, pressed, timestamp))
+
+def on_move(x, y):
+    if recording:
+        timestamp = time.time()
+        recorded_actions.append(('move', x, y, timestamp))
+
+mouse_listener = mListener(on_click=on_click, on_move=on_move)
+mouse_listener.start()
+
+def start_recording():
+    global recording, recorded_actions
+    recorded_actions = []
+    recording = True
+
+def stop_recording():
+    global recording
+    recording = False
+
+def playback_actions():
+    if not recorded_actions:
+        return
+    
+    global recording
+    replaying = True
+
+    start_time = recorded_actions[0][-1]
+    for i, action in enumerate(recorded_actions):
+        if not replaying:
+            break
+        if action[0] == 'move':
+            _, x, y, timestamp = action
+        else:
+            _, x, y, button, pressed, timestamp = action
+        
+        # Sleep until next action
+        if i > 0:
+            delay = timestamp - recorded_actions[i - 1][-1]
+            time.sleep(delay)
+        
+        if action[0] == 'move':
+            mouse.position = (x, y)
+        elif action[0] == 'click' and pressed:
+            mouse.position(x, y)
+            mouse.click(button)
+    
+    replaying = False
+
+################################################################
+#                         GUI SECTION                          #
+################################################################
 
 def launch_gui():
     global start_button, stop_button, status_label, interval_var
@@ -122,7 +188,17 @@ def launch_gui():
     stop_button = ttk.Button(control_frame, text="Stop (`)", command=stop_clicking)
     stop_button.grid(column=1, row=2, padx=20, sticky="w")
 
-    # Update column weights for even spacing
+    # Record and playback buttons
+    record_button = ttk.Button(control_frame, text="Record", command=start_recording)
+    record_button.grid(row=4, column=0, padx=10, pady=(10, 5), sticky="e")
+
+    stop_record_button = ttk.Button(control_frame, text="Stop Record", command=stop_recording)
+    stop_record_button.grid(row=4, column=1, padx=10, pady=(10, 5), sticky="w")
+
+    playback_button = ttk.Button(control_frame, text="Playback", command=lambda: threading.Thread(target=playback_actions, daemon=True).start)
+    playback_button.grid(row=5, column=0, columnspan = 2, pady=(5, 0))
+
+    # Column weights for even spacing
     control_frame.grid_columnconfigure(0, weight=1)  # Column for click speed
     control_frame.grid_columnconfigure(1, weight=1)  # Column for hotkey
 
@@ -148,8 +224,8 @@ def launch_gui():
 click_thread = threading.Thread(target=clicker, daemon=True)
 click_thread.start()
 
-listener_thread = threading.Thread(target=lambda: Listener(on_press=toggle_event).run(), daemon=True)
-listener_thread.start()
+hotkey_clicker_thread = threading.Thread(target=lambda: Listener(on_press=toggle_event).run(), daemon=True)
+hotkey_clicker_thread.start()
 
 # Start the GUI
 launch_gui()
