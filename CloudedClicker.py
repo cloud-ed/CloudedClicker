@@ -23,6 +23,8 @@ status_label = None
 interval_var_global = None
 mode_var = None
 content_frame = None
+record_button = None
+stop_record_button = None
 
 ################################################################
 #                       CLICKER SECTION                        #
@@ -88,13 +90,15 @@ mouse_listener = mListener(on_click=on_click, on_move=on_move)
 mouse_listener.start()
 
 def start_recording():
-    global recording, recorded_actions
-    recorded_actions = []
+    global recording
+    recorded_actions.clear()
     recording = True
+    update_recorder_state()
 
 def stop_recording():
     global recording
     recording = False
+    update_recorder_state()
 
 def playback_actions():
     if not recorded_actions:
@@ -124,12 +128,22 @@ def playback_actions():
 
     replaying = False
 
+
+def update_recorder_state():
+    if record_button and stop_record_button:
+        if recording:
+            record_button.config(state='disabled')
+            stop_record_button.config(state='normal')
+        else:
+            record_button.config(state='normal')
+            stop_record_button.config(state='disabled')
+
 ################################################################
 #                         GUI SECTION                          #
 ################################################################
 
 def launch_gui():
-    global start_button, stop_button, status_label, interval_var_global, mode_var, content_frame
+    global start_button, stop_button, status_label, interval_var_global, mode_var, content_frame, record_button, stop_record_button
 
     root = tk.Tk()
     root.title("CloudedClicker")
@@ -194,17 +208,21 @@ def launch_gui():
         update_gui_state()
 
     def build_recorder_ui(frame):
+        global record_button, stop_record_button
+
         record_button = ttk.Button(frame, text="Start Recording", command=start_recording)
         record_button.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
 
-        stop_button = ttk.Button(frame, text="Stop Recording", command=stop_recording)
-        stop_button.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
+        stop_record_button = ttk.Button(frame, text="Stop Recording", command=stop_recording)
+        stop_record_button.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
 
         playback_button = ttk.Button(frame, text="Playback", command=lambda: threading.Thread(target=playback_actions, daemon=True).start())
         playback_button.grid(row=1, column=0, columnspan=2, pady=5, sticky="ew")
 
         frame.grid_columnconfigure(0, weight=1)
         frame.grid_columnconfigure(1, weight=1)
+
+        update_recorder_state()
 
     switch_mode()
     root.mainloop()
