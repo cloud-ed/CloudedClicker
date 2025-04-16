@@ -20,8 +20,9 @@ recorded_actions = []
 start_button = None
 stop_button = None
 status_label = None
-interval_var = None
-
+interval_var_global = None
+mode_var = None
+content_frame = None
 
 ################################################################
 #                       CLICKER SECTION                        #
@@ -32,7 +33,7 @@ def clicker():
     while True:
         if clicking_event.is_set():
             try:
-                interval = float(interval_var.get()) / 1000  # Convert ms to seconds
+                interval = float(interval_var_global.get()) / 1000  # Convert ms to seconds
             except ValueError:
                 interval = 100 / 1000  # Default 100ms
             mouse.click(Button.left, 1)
@@ -69,7 +70,6 @@ def toggle_event(key):
             clicking_event.set()  # Start clicking
         update_gui_state()
 
-
 ################################################################
 #                  RECORD/PLAYBACK SECTION                     #
 ################################################################
@@ -99,7 +99,7 @@ def stop_recording():
 def playback_actions():
     if not recorded_actions:
         return
-    
+
     global recording
     replaying = True
 
@@ -111,18 +111,17 @@ def playback_actions():
             _, x, y, timestamp = action
         else:
             _, x, y, button, pressed, timestamp = action
-        
-        # Sleep until next action
+
         if i > 0:
             delay = timestamp - recorded_actions[i - 1][-1]
             time.sleep(delay)
-        
+
         if action[0] == 'move':
             mouse.position = (x, y)
         elif action[0] == 'click' and pressed:
-            mouse.position(x, y)
+            mouse.position = (x, y)
             mouse.click(button)
-    
+
     replaying = False
 
 ################################################################
@@ -130,94 +129,84 @@ def playback_actions():
 ################################################################
 
 def launch_gui():
-    global start_button, stop_button, status_label, interval_var
+    global start_button, stop_button, status_label, interval_var_global, mode_var, content_frame
 
     root = tk.Tk()
     root.title("CloudedClicker")
-
-    # Window size
-    w_height = 135
-    w_width = 250
-    root.geometry(f"{w_width}x{w_height}")
+    root.geometry("300x180")
     root.resizable(False, False)
 
-    control_frame = ttk.Frame(root, padding="10")
-    control_frame.grid(row=0, column=0, sticky="nsew")
+    mode_var = tk.StringVar(value="clicker")
 
-    control_frame.grid_columnconfigure(0, weight=1)
-    control_frame.grid_columnconfigure(0, weight=1)
+    def switch_mode():
+        for widget in content_frame.winfo_children():
+            widget.destroy()
+        if mode_var.get() == "clicker":
+            build_clicker_ui(content_frame)
+        else:
+            build_recorder_ui(content_frame)
 
-   # Interval settings
-    ttk.Label(control_frame, text="Click speed (ms):", anchor="center", justify="center").grid(
-        column=0, row=0, pady=(0, 5), sticky="ew"
-    )
+    toggle_button = ttk.Button(root, text="Switch Mode", command=lambda: toggle_mode())
+    toggle_button.pack(pady=(10, 0))
 
-    interval_var = tk.StringVar(value="100")
-    interval_entry = ttk.Entry(control_frame, width=10, textvariable=interval_var, justify="center")
-    interval_entry.grid(column=0, row=1, pady=(0, 10), sticky="ew", padx=10)
+    content_frame = ttk.Frame(root, padding="10")
+    content_frame.pack(fill="both", expand=True)
 
-    # Hotkey settings
-    ttk.Label(control_frame, text="Hotkey:", anchor="center", justify="center").grid(
-        column=1, row=0, pady=(0, 5), sticky="ew"
-    )
+    def toggle_mode():
+        mode_var.set("recorder" if mode_var.get() == "clicker" else "clicker")
+        switch_mode()
 
-    hotkey_var = tk.StringVar(value="`")
-    hotkey_entry = ttk.Entry(control_frame, width=10, textvariable=hotkey_var, justify="center")
-    hotkey_entry.grid(column=1, row=1, pady=(0, 10), sticky="ew", padx=10)
+    def build_clicker_ui(frame):
+        global interval_var_global, start_button, stop_button, status_label
 
+        ttk.Label(frame, text="Click speed (ms):").grid(row=0, column=0, pady=5, sticky="ew")
+        interval_var_global = tk.StringVar(value="100")
+        interval_entry = ttk.Entry(frame, textvariable=interval_var_global, justify="center")
+        interval_entry.grid(row=1, column=0, padx=10, sticky="ew")
 
-    # No auto-select when tabbing in
-    def remove_selection(event):
-        event.widget.selection_clear()
+        ttk.Label(frame, text="Hotkey:").grid(row=0, column=1, pady=5, sticky="ew")
+        hotkey_var = tk.StringVar(value="`")
+        hotkey_entry = ttk.Entry(frame, textvariable=hotkey_var, justify="center")
+        hotkey_entry.grid(row=1, column=1, padx=10, sticky="ew")
 
-    interval_entry.bind("<FocusIn>", remove_selection)
-    hotkey_entry.bind("<FocusIn>", remove_selection)
+        start_button = ttk.Button(frame, text="Start (`)", command=start_clicking)
+        start_button.grid(row=2, column=0, padx=10, pady=10)
 
-    # Deselect entry when clicking outside
-    def clear_focus(event):
-        widget = event.widget
-        if not isinstance(widget, tk.Entry):
-            root.focus()
+        stop_button = ttk.Button(frame, text="Stop (`)", command=stop_clicking)
+        stop_button.grid(row=2, column=1, padx=10, pady=10)
 
-    root.bind_all("<Button-1>", clear_focus)
+        status_label = ttk.Label(frame, text="Status: Idle")
+        status_label.grid(row=3, column=0, columnspan=2, pady=5)
 
-    # Start and stop buttons
-    start_button = ttk.Button(control_frame, text="Start (`)", command=start_clicking)
-    start_button.grid(column=0, row=2, padx=20, sticky="e")
+        frame.grid_columnconfigure(0, weight=1)
+        frame.grid_columnconfigure(1, weight=1)
 
-    stop_button = ttk.Button(control_frame, text="Stop (`)", command=stop_clicking)
-    stop_button.grid(column=1, row=2, padx=20, sticky="w")
+        def update_hotkey(*args):
+            global TOGGLE_KEY
+            hotkey = hotkey_var.get().strip()
+            if len(hotkey) == 1:
+                TOGGLE_KEY = KeyCode(char=hotkey.lower())
+                start_button.config(text=f"Start ({hotkey})")
+                stop_button.config(text=f"Stop ({hotkey})")
 
-    # Record and playback buttons
-    record_button = ttk.Button(control_frame, text="Record", command=start_recording)
-    record_button.grid(row=4, column=0, padx=10, pady=(10, 5), sticky="e")
+        hotkey_var.trace_add("write", update_hotkey)
+        update_hotkey()
+        update_gui_state()
 
-    stop_record_button = ttk.Button(control_frame, text="Stop Record", command=stop_recording)
-    stop_record_button.grid(row=4, column=1, padx=10, pady=(10, 5), sticky="w")
+    def build_recorder_ui(frame):
+        record_button = ttk.Button(frame, text="Start Recording", command=start_recording)
+        record_button.grid(row=0, column=0, padx=10, pady=5, sticky="ew")
 
-    playback_button = ttk.Button(control_frame, text="Playback", command=lambda: threading.Thread(target=playback_actions, daemon=True).start)
-    playback_button.grid(row=5, column=0, columnspan = 2, pady=(5, 0))
+        stop_button = ttk.Button(frame, text="Stop Recording", command=stop_recording)
+        stop_button.grid(row=0, column=1, padx=10, pady=5, sticky="ew")
 
-    # Column weights for even spacing
-    control_frame.grid_columnconfigure(0, weight=1)  # Column for click speed
-    control_frame.grid_columnconfigure(1, weight=1)  # Column for hotkey
+        playback_button = ttk.Button(frame, text="Playback", command=lambda: threading.Thread(target=playback_actions, daemon=True).start())
+        playback_button.grid(row=1, column=0, columnspan=2, pady=5, sticky="ew")
 
-    # Current status
-    status_label = ttk.Label(control_frame, text="Status: Idle", anchor="center")
-    status_label.grid(column=0, row=3, columnspan=2, pady=(10, 0), sticky="nsew")
+        frame.grid_columnconfigure(0, weight=1)
+        frame.grid_columnconfigure(1, weight=1)
 
-    # Update hotkey
-    def update_hotkey(*args):
-        global TOGGLE_KEY
-        hotkey = hotkey_var.get().strip()
-        if len(hotkey) == 1:
-            TOGGLE_KEY = KeyCode(char=hotkey.lower())
-            start_button.config(text=f"Start ({hotkey})")
-            stop_button.config(text=f"Stop ({hotkey})")
-    hotkey_var.trace_add("write", update_hotkey)
-
-    update_hotkey()
-    update_gui_state()
+    switch_mode()
     root.mainloop()
 
 # Threads
