@@ -18,6 +18,13 @@ CloudedClicker is a lightweight, customizeable **autoclicker for Windows** - now
 
 ---
 
+## 📅 Planned Features
+
+- 💻 **Keyboard Macro Support** - Integrate the use of the keyboard into the macro function
+- 🔑 **Custom Keybinds for Various Features** - Including recording and playback
+
+---
+
 ## 🖥️ How to Use
 
 ### 🖱 Autoclicker Mode:
