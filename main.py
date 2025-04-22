@@ -1,4 +1,4 @@
-from gui import launch_gui
+from cloudedclicker.gui import launch_gui
 from pynput.mouse import Controller
 
 def main():
