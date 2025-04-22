@@ -1,5 +1,5 @@
 import unittest
-from clicker_controller import ClickerController
+from cloudedclicker.clicker_controller import ClickerController
 from unittest.mock import MagicMock
 
 
