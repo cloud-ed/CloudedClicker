@@ -2,11 +2,9 @@
 
 CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for Windows** - now with full custom keybinds.
 
----
+## 💡 Why I made this
 
 6 weeks ago, I suffered a serious distal humeral fracture, which resulted in radial nerve palsy - a condition that impairs my ability to control my wrist and fingers. After surgery, my nerve was found to be partially severed and surgically re-attached. As it was my dominant hand, everyday tasks became much more challenging and slow. During my recovery, I realized I could use this as an opportunity to create something that would reduce the strain I was experiencing (and play Cookie Clicker). Thus, CloudedClicker was born.
-
----
 
 ## ✨ Features
 
@@ -17,14 +15,10 @@ CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for 
 - 🔑 **Custom Keybinds** — Set your own hotkeys for recording, playback, and clicking actions, making it easy to control the tool the way you want.
 - 🎛️ **Clean and Minimal UI** — Lightweight, no fluff. Just click, set, go.
 
----
-
 ## 📅 Potential Future Features
 
 - 💻 **Keyboard Macro Support** - Integrate the use of the keyboard into the macro function
 - 💾 **Save and Re-use Recordings** - Re-use any saved recording to save time
-
----
 
 ## 🖥️ How to Use
 
@@ -44,22 +38,16 @@ CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for 
 4. Press **Stop Recording** once you're done.
 5. Click **Playback** to replay your recorded inputs.
 
----
-
 ## 📦 Download
 
 You can download the latest version from the [Releases](https://github.com/cloud-ed/cloudedclicker/releases) page.  
 Just download and unzip — no install required.
-
----
 
 ## ❗ Notes
 
 - CloudedClicker is built for accessibility and personal use. Please **use responsibly** and in accordance with any software or game policies.
 - This app runs quietly in the background. If you accidentally enable it, just press your toggle hotkey again to stop.
 - Recording only captures mouse movement and left-clicks for now — keyboard support might come in a future update.
-
----
 
 ## 🛠️ Built With
 
@@ -68,8 +56,6 @@ Just download and unzip — no install required.
 - [Pynput](https://pynput.readthedocs.io/)
 - [PyInstaller](https://pyinstaller.org/en/stable/)
 - [Favicon](https://favicon.io/)
-
----
 
 ## Dev Note
 
