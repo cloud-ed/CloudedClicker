@@ -1,8 +1,8 @@
 import threading
 import tkinter as tk
 from tkinter import ttk
-from clicker_controller import ClickerController
-from recorder_controller import RecorderController
+from .clicker_controller import ClickerController
+from .recorder_controller import RecorderController
 from pynput.mouse import Controller
 
 def launch_gui():
@@ -105,9 +105,15 @@ def launch_gui():
                 recorder.record_hotkey = record_key
                 recorder.record_button.config(text=f"Start Recording ({record_key})")
                 recorder.stop_record_button.config(text=f"Stop Recording ({record_key})")
+                record_entry.selection_clear()
+                record_entry.icursor("end")
+                record_entry.master.focus_set()
             if len(playback_key) == 1:
                 recorder.playback_hotkey = playback_key
                 playback_button.config(text=f"Playback ({playback_key})")
+                playback_entry.selection_clear()
+                playback_entry.icursor("end")
+                playback_entry.master.focus_set()
 
         record_hotkey_var.trace_add("write", update_hotkeys)
         playback_hotkey_var.trace_add("write", update_hotkeys)
