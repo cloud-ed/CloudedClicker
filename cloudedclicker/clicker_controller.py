@@ -1,5 +1,3 @@
-# clicker_controller.py
-
 import threading
 import time
 from pynput.mouse import Controller, Button
