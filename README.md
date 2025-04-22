@@ -1,10 +1,10 @@
-# CloudedClicker V1.1.0
+# CloudedClicker V1.2.0
 
-CloudedClicker is a lightweight, customizeable **autoclicker for Windows** - now with mouse macro recording and playback.
+CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for Windows** - now with full custom keybinds.
 
 ---
 
-6 weeks ago, as of writing this, I experienced a serious distal humeral fracture (the lower part of your upper arm) that caused radial nerve palsy (nerve damage that causes you to lose control of your wrist and fingers). I then had surgery a week later to get it repaired, with my nerve found to be partially-severed (which was re-attached). Luckily for me, it was my dominant hand, meaning most things were significantly harder and tasks would slow to a crawl. However, during this time I figured I should try and write a project that could at least help minimise my strain (and play Cookie Clicker). Thus, CloudedClicker was born.
+6 weeks ago, I suffered a serious distal humeral fracture, which resulted in radial nerve palsy - a condition that impairs my ability to control my wrist and fingers. After surgery, my nerve was found to be partially severed and surgically re-attached. As it was my dominant hand, everyday tasks became much more challenging and slow. During my recovery, I realized I could use this as an opportunity to create something that would reduce the strain I was experiencing (and play Cookie Clicker). Thus, CloudedClicker was born.
 
 ---
 
@@ -19,7 +19,7 @@ CloudedClicker is a lightweight, customizeable **autoclicker for Windows** - now
 
 ---
 
-## 📅 Planned Features
+## 📅 Potential Future Features
 
 - 💻 **Keyboard Macro Support** - Integrate the use of the keyboard into the macro function
 - 💾 **Save and re-use recordings** - Re-use any saved recording to save time
@@ -39,11 +39,10 @@ CloudedClicker is a lightweight, customizeable **autoclicker for Windows** - now
 ### 🎥 Recorder Mode:
 
 1. Click **Switch Mode** to enter Recorder Mode.
-2. Press **Start Recording** and perform the mouse actions you want to capture.
-3. Press **Stop Recording** once you're done.
-4. Click **Playback** to replay your recorded inputs.
-
-> 🔒 While in Recorder Mode, the hotkey toggle for clicking is disabled — no accidental clicks mid-recording.
+2. Set your preferred **hotkeys**.
+3. Press **Start Recording** and perform the mouse actions you want to capture.
+4. Press **Stop Recording** once you're done.
+5. Click **Playback** to replay your recorded inputs.
 
 ---
 
@@ -74,8 +73,8 @@ Just download and unzip — no install required.
 
 ## Dev Note
 
-I know it's not much, but this project is really just a small win I needed right now. If anyone wants to use it, feel free.
+I know it's not the most impressive project, but it's something that helped me when I needed it. Feel free to use it if you want.
 
-Thanks for checking it out
+Thanks for checking it out 😁
 
-**_clouded_**
+**_clouded_** ☁️
