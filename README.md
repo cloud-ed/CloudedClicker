@@ -22,7 +22,7 @@ CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for 
 ## 📅 Potential Future Features
 
 - 💻 **Keyboard Macro Support** - Integrate the use of the keyboard into the macro function
-- 💾 **Save and re-use recordings** - Re-use any saved recording to save time
+- 💾 **Save and Re-use Recordings** - Re-use any saved recording to save time
 
 ---
 
