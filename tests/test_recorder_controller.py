@@ -1,5 +1,5 @@
 import unittest
-from recorder_controller import RecorderController
+from cloudedclicker.recorder_controller import RecorderController
 from unittest.mock import MagicMock
 import time
 
