@@ -1,4 +1,4 @@
-# CloudedClicker V1.2.0
+# ☁️ CloudedClicker V1.2.0
 
 CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for Windows** - now with full custom keybinds.
 
