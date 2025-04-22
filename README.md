@@ -14,6 +14,7 @@ CloudedClicker is a lightweight, customizeable **autoclicker for Windows** - now
 - ⚙️ **Adjustable Click Interval** — Set how fast it clicks (in milliseconds).
 - 🎥 **Record + Playback Mouse Actions** — Automate more complex or repetitive motion with ease.
 - 🔁 **Mode Switching** — Instantly switch between autoclicker mode and recording mode with one button.
+- 🔑 **Custom Keybinds** — Set your own hotkeys for recording, playback, and clicking actions, making it easy to control the tool the way you want.
 - 🎛️ **Clean and Minimal UI** — Lightweight, no fluff. Just click, set, go.
 
 ---
@@ -21,7 +22,6 @@ CloudedClicker is a lightweight, customizeable **autoclicker for Windows** - now
 ## 📅 Planned Features
 
 - 💻 **Keyboard Macro Support** - Integrate the use of the keyboard into the macro function
-- 🔑 **Custom Keybinds for Various Features** - Including recording and playback
 - 💾 **Save and re-use recordings** - Re-use any saved recording to save time
 
 ---
