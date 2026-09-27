@@ -2,6 +2,11 @@
 
 CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for Windows** - now with full custom keybinds.
 
+<!-- AUTO-PATCH-NOTES-START -->
+## 🔧 Known Issues (Automated)
+- **#4** (docs): README does not specify the required Python version. <!-- issue-4 -->
+<!-- AUTO-PATCH-NOTES-END -->
+
 ## 💡 Why I made this
 
 6 weeks ago, I suffered a serious distal humeral fracture, which resulted in radial nerve palsy - a condition that impairs my ability to control my wrist and fingers. After surgery, my nerve was found to be partially severed and surgically re-attached. As it was my dominant hand, everyday tasks became much more challenging and slow. During my recovery, I realized I could use this as an opportunity to create something that would reduce the strain I was experiencing (and play Cookie Clicker). Thus, CloudedClicker was born.
