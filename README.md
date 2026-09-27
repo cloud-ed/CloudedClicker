@@ -3,8 +3,7 @@
 CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for Windows** - now with full custom keybinds.
 
 <!-- AUTO-PATCH-NOTES-START -->
-## 🔧 Known Issues (Automated)
-- **#4** (docs): README does not specify the required Python version. <!-- issue-4 -->
+
 <!-- AUTO-PATCH-NOTES-END -->
 
 ## 💡 Why I made this
