@@ -3,7 +3,13 @@
 CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for Windows** - now with full custom keybinds.
 
 <!-- AUTO-PATCH-NOTES-START -->
-
+- 🐛 **#1** (bug): The application fails to detect or warn about conflicting keybinds when multiple actions are assigned the same hotkey, leading to silent, unpredictable behavior. <!-- issue-1 -->
+- ✨ **#2** (feature): Add functionality to save and load recorded mouse macros to persist recordings across app sessions. <!-- issue-2 -->
+- ✨ **#3** (feature): Extend the recorder to capture right and middle mouse clicks in addition to left clicks and movements. <!-- issue-3 -->
+- 📄 **#4** (docs): The README lacks specification of the required Python version, causing potential compatibility issues when running the project from source. <!-- issue-4 -->
+- 🐛 **#5** (bug): The application may fail silently when simulating mouse input without admin permissions due to OS-level restrictions, and should detect and notify the user to run with elevated privileges. <!-- issue-5 -->
+- 🐛 **#6** (bug): Switching between Autoclicker Mode and Recorder Mode resets the click interval to default, losing user-configured values and requiring re-entry each time. <!-- issue-6 -->
+- 🐛 **#7** (bug): The application icon fails to appear in the Windows 11 system tray on certain builds despite the app running, likely due to timing issues in tray icon registration. <!-- issue-7 -->
 <!-- AUTO-PATCH-NOTES-END -->
 
 ## 💡 Why I made this
