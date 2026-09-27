@@ -3,6 +3,7 @@
 CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for Windows** - now with full custom keybinds.
 
 <!-- AUTO-PATCH-NOTES-START -->
+## 🔧 Known Issues (Automated)
 - 🐛 **#1** (bug): The application fails to detect or warn about conflicting keybinds when multiple actions are assigned the same hotkey, leading to silent, unpredictable behavior. <!-- issue-1 -->
 - ✨ **#2** (feature): Add functionality to save and load recorded mouse macros to persist recordings across app sessions. <!-- issue-2 -->
 - ✨ **#3** (feature): Extend the recorder to capture right and middle mouse clicks in addition to left clicks and movements. <!-- issue-3 -->
