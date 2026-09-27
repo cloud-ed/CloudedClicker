@@ -11,6 +11,7 @@ CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for 
 - 🐛 **#5** (bug): The application may fail silently when simulating mouse input without admin permissions due to OS-level restrictions, and should detect and notify the user to run with elevated privileges. <!-- issue-5 -->
 - 🐛 **#6** (bug): Switching between Autoclicker Mode and Recorder Mode resets the click interval to default, losing user-configured values and requiring re-entry each time. <!-- issue-6 -->
 - 🐛 **#7** (bug): The application icon fails to appear in the Windows 11 system tray on certain builds despite the app running, likely due to timing issues in tray icon registration. <!-- issue-7 -->
+- ✨ **#8** (feature): The recorder mode should display a warning message when no actions are captured to inform the user before attempting playback. <!-- issue-8 -->
 <!-- AUTO-PATCH-NOTES-END -->
 
 ## 💡 Why I made this
