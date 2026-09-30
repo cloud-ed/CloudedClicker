@@ -13,6 +13,7 @@ CloudedClicker is a lightweight, customizeable **autoclicker and macro tool for 
 - 🐛 **#7** (bug): The application icon fails to appear in the Windows 11 system tray on certain builds despite the app running, likely due to timing issues in tray icon registration. <!-- issue-7 -->
 - ✨ **#8** (feature): The recorder mode should display a warning message when no actions are captured to inform the user before attempting playback. <!-- issue-8 -->
 - 🐛 **#9** (bug): The issue appears to be a test submission with minimal content, likely intended to verify the triage process rather than report an actual problem. <!-- issue-9 -->
+- ✨ **#10** (feature): Request to add a colour blind mode to improve accessibility for colourblind users. <!-- issue-10 -->
 <!-- AUTO-PATCH-NOTES-END -->
 
 ## 💡 Why I made this
